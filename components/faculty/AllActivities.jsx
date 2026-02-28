@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { facultyAPI } from '../../utils/api';
 import { STATUS_COLORS, ACTIVITY_STATUS } from '../../utils/constants';
 import { PROGRAM_CATEGORIES } from '../../utils/programsData';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { SectionSkeleton } from '../shared/LoadingSpinner';
 
 const AllActivities = ({ user, token }) => {
   const [activities, setActivities] = useState([]);
@@ -103,8 +103,11 @@ const AllActivities = ({ user, token }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <SectionSkeleton rows={4} />
+        <div className="flex justify-center py-6">
+          <LoadingSpinner size="md" text="Loading activities..." />
+        </div>
       </div>
     );
   }

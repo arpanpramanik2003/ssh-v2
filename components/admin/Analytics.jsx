@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { adminAPI } from '../../utils/api';
 import { API_BASE_URL } from '../../utils/constants';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 
 const Analytics = ({ user, token, onNavigate }) => {
   const [stats, setStats] = useState(null);
@@ -335,8 +335,11 @@ const Analytics = ({ user, token, onNavigate }) => {
 
   if (loading && !stats) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <CardSkeleton cards={4} />
+        <div className="flex justify-center py-10">
+          <LoadingSpinner size="md" text="Loading analytics..." />
+        </div>
       </div>
     );
   }

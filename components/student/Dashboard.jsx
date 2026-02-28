@@ -3,7 +3,7 @@ import React, { useState, useEffect, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { studentAPI } from '../../utils/api';
 import { STATUS_COLORS, API_BASE_URL } from '../../utils/constants';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Get backend base URL from environment variable (without /api suffix)
@@ -104,8 +104,11 @@ const Dashboard = ({ user, token, updateUser }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <CardSkeleton cards={4} />
+        <div className="flex justify-center py-8">
+          <LoadingSpinner size="md" text="Loading dashboard..." />
+        </div>
       </div>
     );
   }

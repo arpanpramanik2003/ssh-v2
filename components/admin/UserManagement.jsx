@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { adminAPI } from '../../utils/api';
 import { USER_ROLES, API_BASE_URL } from '../../utils/constants';
 import { PROGRAM_CATEGORIES, UNIVERSITY_PROGRAMS, getProgramsByCategory, getSpecializations, getCategoryKey } from '../../utils/programsData';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { TableSkeleton } from '../shared/LoadingSpinner';
 
 const UserManagement = ({ user, token, onNavigate }) => {
   // Get backend base URL for image serving
@@ -444,8 +444,11 @@ const UserManagement = ({ user, token, onNavigate }) => {
 
   if (loading && users.length === 0) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <TableSkeleton rows={6} cols={5} />
+        <div className="flex justify-center py-6">
+          <LoadingSpinner size="md" text="Loading users..." />
+        </div>
       </div>
     );
   }

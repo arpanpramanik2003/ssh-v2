@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { facultyAPI } from '../../utils/api';
 import { API_BASE_URL } from '../../utils/constants';
 import { PROGRAM_CATEGORIES, getProgramsByCategory, getSpecializations } from '../../utils/programsData';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { TableSkeleton } from '../shared/LoadingSpinner';
 
 const StudentList = ({ user }) => {
   // Get backend base URL for image serving
@@ -140,8 +140,11 @@ const StudentList = ({ user }) => {
 
   if (loading && students.length === 0) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <TableSkeleton rows={5} cols={4} />
+        <div className="flex justify-center py-6">
+          <LoadingSpinner size="md" text="Loading students..." />
+        </div>
       </div>
     );
   }

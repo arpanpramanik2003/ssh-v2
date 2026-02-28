@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { studentAPI } from "../../utils/api";
 import { API_BASE_URL } from "../../utils/constants";
 import { motion, AnimatePresence } from "framer-motion";
-import LoadingSpinner from "../shared/LoadingSpinner";
+import LoadingSpinner, { SectionSkeleton } from "../shared/LoadingSpinner";
 
 const defaultDetails = {
   tenthResult: "",
@@ -143,8 +143,9 @@ const StudentCVForm = ({ user, isReadOnly = false }) => {
   if (loading) {
     return (
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 transition-colors">
-        <div className="flex justify-center items-center h-32">
-          <LoadingSpinner size="lg" text="Loading your profile..." />
+        <SectionSkeleton rows={4} />
+        <div className="flex justify-center py-6">
+          <LoadingSpinner size="md" text="Loading your profile..." />
         </div>
       </div>
     );

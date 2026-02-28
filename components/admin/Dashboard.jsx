@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { adminAPI } from '../../utils/api';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 
 const AdminDashboard = ({ user, token, onNavigate }) => {
   const router = useRouter();
@@ -54,8 +54,11 @@ const AdminDashboard = ({ user, token, onNavigate }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <CardSkeleton cards={4} />
+        <div className="flex justify-center py-10">
+          <LoadingSpinner size="md" text="Loading dashboard..." />
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { studentAPI } from '../../utils/api';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { SectionSkeleton } from '../shared/LoadingSpinner';
 import jsPDF from 'jspdf';
 import StudentCVForm from './StudentCVForm';
 
@@ -407,8 +407,11 @@ const generateEnhancedPDF = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" text="Loading your portfolio..." />
+      <div className="space-y-6 animate-fade-in">
+        <SectionSkeleton rows={5} />
+        <div className="flex justify-center py-6">
+          <LoadingSpinner size="md" text="Loading your portfolio..." />
+        </div>
       </div>
     );
   }

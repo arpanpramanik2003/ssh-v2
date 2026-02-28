@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { facultyAPI } from '../../utils/api';
 import { STATUS_COLORS } from '../../utils/constants';
 import { PROGRAM_CATEGORIES } from '../../utils/programsData';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 
 const Dashboard = ({ user, token, onNavigate }) => {
   const router = useRouter();
@@ -37,8 +37,11 @@ const Dashboard = ({ user, token, onNavigate }) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <LoadingSpinner size="lg" />
+      <div className="space-y-6 animate-fade-in">
+        <CardSkeleton cards={3} />
+        <div className="flex justify-center py-8">
+          <LoadingSpinner size="md" text="Loading dashboard..." />
+        </div>
       </div>
     );
   }

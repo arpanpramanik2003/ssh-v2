@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { studentAPI } from '../../utils/api';
-import LoadingSpinner from '../shared/LoadingSpinner';
+import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 import { API_BASE_URL } from '../../utils/constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROGRAM_CATEGORIES, UNIVERSITY_PROGRAMS, getProgramsByCategory, getSpecializations } from '../../utils/programsData';
@@ -598,7 +598,14 @@ const BrowseStudents = ({ user, token }) => {
   );
 
   if (loading && students.length === 0) {
-    return <LoadingSpinner />;
+    return (
+      <div className="space-y-6 animate-fade-in">
+        <CardSkeleton cards={6} />
+        <div className="flex justify-center py-6">
+          <LoadingSpinner size="md" text="Discovering students..." />
+        </div>
+      </div>
+    );
   }
 
   return (

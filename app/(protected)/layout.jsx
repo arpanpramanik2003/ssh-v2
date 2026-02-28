@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
+import { BrandedLoader } from '../../components/shared/LoadingSpinner';
 import Sidebar from '../../components/shared/Sidebar';
 import TopHeader from '../../components/shared/TopHeader';
 import AppLayout from '../../components/shared/Layout';
@@ -18,11 +19,7 @@ export default function ProtectedLayout({ children }) {
   }, [user, loading, router]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
-      </div>
-    );
+    return <BrandedLoader />;
   }
 
   if (!user) return null;
