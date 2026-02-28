@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { initDB } from '@/lib/database';
 import { generateToken } from '@/lib/auth';
