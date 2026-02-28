@@ -1,5 +1,6 @@
 ﻿'use client';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import Image from 'next/image';
 import { facultyAPI } from '../../utils/api';
 import { API_BASE_URL } from '../../utils/constants';
 import { PROGRAM_CATEGORIES, getProgramsByCategory, getSpecializations } from '../../utils/programsData';
@@ -370,10 +371,13 @@ const StudentList = ({ user }) => {
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
                           {student.profilePicture ? (
-                            <img
+                            <Image
                               className="h-10 w-10 rounded-full object-cover"
                               src={getProfileImageUrl(student.profilePicture)}
                               alt={student.name}
+                              width={40}
+                              height={40}
+                              unoptimized
                             />
                           ) : (
                             <div className="h-10 w-10 rounded-full bg-blue-600 dark:bg-blue-700 flex items-center justify-center text-white font-bold">
@@ -475,10 +479,13 @@ const StudentList = ({ user }) => {
             <div className="bg-blue-600 dark:bg-blue-900 text-white px-6 py-4 rounded-t-xl flex items-center justify-between border-b border-blue-400 dark:border-blue-700/50 transition-colors">
               <div className="flex items-center">
                 {selectedStudent.profilePicture ? (
-                  <img
+                  <Image
                     className="h-16 w-16 rounded-full border-4 border-white object-cover"
                     src={getProfileImageUrl(selectedStudent.profilePicture)}
                     alt={selectedStudent.name}
+                    width={64}
+                    height={64}
+                    unoptimized
                   />
                 ) : (
                   <div className="h-16 w-16 rounded-full border-4 border-white bg-white flex items-center justify-center">

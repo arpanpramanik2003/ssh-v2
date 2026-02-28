@@ -17,6 +17,7 @@ const AllActivities = ({ user, token }) => {
   useEffect(() => {
     fetchAllActivities();
     fetchStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, sortBy]);
 
   const fetchAllActivities = async () => {

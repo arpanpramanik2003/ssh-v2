@@ -33,6 +33,7 @@ const Analytics = ({ user, token, onNavigate }) => {
       startDate: startDate.toISOString().split('T')[0],
       endDate: endDate.toISOString().split('T')[0]
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showSuccessMessage = useCallback((text) => {
@@ -1105,7 +1106,7 @@ const Analytics = ({ user, token, onNavigate }) => {
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center">
                             <span className="text-3xl font-bold text-amber-600 dark:text-amber-400 mr-3">
-                              '{batch.toString().slice(-2)}
+                              &apos;{batch.toString().slice(-2)}
                             </span>
                             <div>
                               <span className="text-sm text-gray-600 dark:text-gray-400">Batch of</span>

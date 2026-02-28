@@ -15,10 +15,6 @@ const ActivityList = ({ user, token }) => {
   const [editFormData, setEditFormData] = useState({});
   const [editSubmitting, setEditSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchActivities();
-  }, [filter]);
-
   const fetchActivities = async () => {
     setLoading(true);
     try {
@@ -123,6 +119,11 @@ const ActivityList = ({ user, token }) => {
         return null;
     }
   };
+
+  useEffect(() => {
+    fetchActivities();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
 
   const toggleFileVisibility = activityId => {
     setVisibleFiles(prev => ({

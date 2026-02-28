@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { USER_ROLES } from '../../utils/constants';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -187,7 +188,7 @@ const Sidebar = ({ user, onCollapsedChange }) => {
           {/* Logo Section */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <div className={`flex items-center space-x-3 transition-opacity duration-300 ${isCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
-              <img src="/android-chrome-192x192.png" alt="SSH" className="h-10 w-10 object-contain flex-shrink-0" />
+              <Image src="/android-chrome-192x192.png" alt="SSH" width={40} height={40} className="h-10 w-10 object-contain flex-shrink-0" />
               <div className={`overflow-hidden ${isCollapsed ? 'w-0' : 'w-auto'}`}>
                 <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent whitespace-nowrap">SSH</h1>
                 <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Student Hub</p>

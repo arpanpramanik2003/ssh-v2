@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import Image from 'next/image';
 import { studentAPI } from '../../utils/api';
 import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 import { API_BASE_URL } from '../../utils/constants';
@@ -178,11 +179,14 @@ const BrowseStudents = ({ user, token }) => {
                 {getInitials(student.name)}
               </div>
             ) : (
-              <img
+              <Image
                 src={getProfileImage(student.profilePicture)}
                 alt={student.name}
+                width={64}
+                height={64}
                 className="w-16 h-16 rounded-full object-cover shadow-lg"
                 onError={() => setImageError(true)}
+                unoptimized
               />
             )}
           </div>
@@ -344,11 +348,14 @@ const BrowseStudents = ({ user, token }) => {
                     {getInitials(student.name)}
                   </div>
                 ) : (
-                  <img
+                  <Image
                     src={getProfileImage(student.profilePicture)}
                     alt={student.name}
+                    width={64}
+                    height={64}
                     className="w-16 h-16 rounded-2xl object-cover border-2 border-white/30"
                     onError={() => setImageError(true)}
+                    unoptimized
                   />
                 )}
                 <div>

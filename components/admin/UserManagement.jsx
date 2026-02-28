@@ -1,9 +1,61 @@
 'use client';
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import Image from 'next/image';
 import { adminAPI } from '../../utils/api';
 import { USER_ROLES, API_BASE_URL } from '../../utils/constants';
 import { PROGRAM_CATEGORIES, UNIVERSITY_PROGRAMS, getProgramsByCategory, getSpecializations, getCategoryKey } from '../../utils/programsData';
 import LoadingSpinner, { TableSkeleton } from '../shared/LoadingSpinner';
+
+// Extracted as a proper component to avoid hooks-in-callback violation
+const Modal = ({ isOpen, onClose, title, children, modalRef }) => {
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-70 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4 transition-colors"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <div 
+        ref={modalRef}
+        className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto transition-colors"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 transition-colors">{title}</h3>
+            <button
+              onClick={onClose}
+              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+              type="button"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const UserManagement = ({ user, token, onNavigate }) => {
   // Get backend base URL for image serving
@@ -389,57 +441,6 @@ const UserManagement = ({ user, token, onNavigate }) => {
 
   const handleCloseDetailsModal = useCallback(() => {
     setShowDetailsModal(false);
-  }, []);
-
-  // ✅ FIXED: Modal component moved outside with stable props
-  const Modal = useCallback(({ isOpen, onClose, title, children }) => {
-    useEffect(() => {
-      const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-          onClose();
-        }
-      };
-
-      if (isOpen) {
-        document.addEventListener('keydown', handleEscape);
-        return () => document.removeEventListener('keydown', handleEscape);
-      }
-    }, [isOpen, onClose]);
-
-    if (!isOpen) return null;
-
-    return (
-      <div 
-        className="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-70 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4 transition-colors"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            onClose();
-          }
-        }}
-      >
-        <div 
-          ref={modalRef}
-          className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto transition-colors"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 transition-colors">{title}</h3>
-              <button
-                onClick={onClose}
-                className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
-                type="button"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            {children}
-          </div>
-        </div>
-      </div>
-    );
   }, []);
 
   if (loading && users.length === 0) {
@@ -882,14 +883,17 @@ const UserManagement = ({ user, token, onNavigate }) => {
                       <td className="px-4 lg:px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         {userData.role === 'student' && userData.profilePicture && getProfileImageUrl(userData.profilePicture) ? (
-                          <img 
+                          <Image 
                             src={getProfileImageUrl(userData.profilePicture)} 
                             alt={userData.name}
+                            width={40}
+                            height={40}
                             className="w-10 h-10 rounded-full object-cover mr-3 border-2 border-blue-300 shadow-md"
                             onError={(e) => {
                               e.target.style.display = 'none';
                               e.target.nextElementSibling.style.display = 'flex';
                             }}
+                            unoptimized
                           />
                         ) : null}
                         <div 
@@ -1021,14 +1025,17 @@ const UserManagement = ({ user, token, onNavigate }) => {
                 {/* User Info */}
                 <div className="flex items-start space-x-3 mb-3">
                   {userData.role === 'student' && userData.profilePicture && getProfileImageUrl(userData.profilePicture) ? (
-                    <img 
+                    <Image 
                       src={getProfileImageUrl(userData.profilePicture)} 
                       alt={userData.name}
+                      width={48}
+                      height={48}
                       className="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-blue-300 shadow-md"
                       onError={(e) => {
                         e.target.style.display = 'none';
                         e.target.nextElementSibling.style.display = 'flex';
                       }}
+                      unoptimized
                     />
                   ) : null}
                   <div 
@@ -1254,6 +1261,7 @@ const UserManagement = ({ user, token, onNavigate }) => {
         isOpen={showAddModal} 
         onClose={handleCloseAddModal}
         title="Add New User"
+        modalRef={modalRef}
       >
         <form onSubmit={handleFormSubmit} className="space-y-4">
           <div>
@@ -1473,6 +1481,7 @@ const UserManagement = ({ user, token, onNavigate }) => {
         isOpen={showEditModal} 
         onClose={handleCloseEditModal}
         title={`Edit User: ${selectedUser?.name}`}
+        modalRef={modalRef}
       >
         <form onSubmit={handleFormSubmit} className="space-y-4">
           <div>
@@ -1677,6 +1686,7 @@ const UserManagement = ({ user, token, onNavigate }) => {
         isOpen={showDetailsModal} 
         onClose={handleCloseDetailsModal}
         title=""
+        modalRef={modalRef}
       >
         {selectedUser && (
           <div className="space-y-6">
@@ -1684,14 +1694,17 @@ const UserManagement = ({ user, token, onNavigate }) => {
             <div className="bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-lg p-6 border border-teal-200 dark:border-teal-800 transition-colors">
               <div className="flex items-start gap-4">
                 {selectedUser.role === 'student' && selectedUser.profilePicture && getProfileImageUrl(selectedUser.profilePicture) ? (
-                  <img 
+                  <Image 
                     src={getProfileImageUrl(selectedUser.profilePicture)} 
                     alt={selectedUser.name}
+                    width={80}
+                    height={80}
                     className="w-20 h-20 rounded-full object-cover flex-shrink-0 border-4 border-teal-300 shadow-lg"
                     onError={(e) => {
                       e.target.style.display = 'none';
                       e.target.nextElementSibling.style.display = 'flex';
                     }}
+                    unoptimized
                   />
                 ) : null}
                 <div 
@@ -1754,13 +1767,16 @@ const UserManagement = ({ user, token, onNavigate }) => {
                 {selectedUser.role === 'student' && selectedUser.profilePicture && getProfileImageUrl(selectedUser.profilePicture) && (
                   <div className="bg-white dark:bg-gray-700 p-4 rounded-lg transition-colors text-center border-2 border-blue-200 dark:border-blue-800">
                     <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors mb-3 font-semibold">Profile Picture</p>
-                    <img 
+                    <Image 
                       src={getProfileImageUrl(selectedUser.profilePicture)} 
                       alt={selectedUser.name}
+                      width={160}
+                      height={160}
                       className="w-40 h-40 rounded-lg object-cover mx-auto shadow-lg border-2 border-blue-300"
                       onError={(e) => {
                         e.target.style.display = 'none';
                       }}
+                      unoptimized
                     />
                   </div>
                 )}

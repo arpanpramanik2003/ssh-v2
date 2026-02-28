@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useTransition } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { studentAPI } from '../../utils/api';
 import { STATUS_COLORS, API_BASE_URL } from '../../utils/constants';
@@ -121,10 +122,13 @@ const Dashboard = ({ user, token, updateUser }) => {
         transition={{ duration: 0.3 }}
         className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4"
       >
-        <img
+        <Image
           src={profilePreview}
           alt="Profile"
+          width={96}
+          height={96}
           className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-blue-100 object-cover shadow-xl flex-shrink-0"
+          unoptimized
         />
         <div className="flex-1 text-center sm:text-left w-full">
           <h1 className="text-xl sm:text-2xl font-bold mb-1">Welcome back, {user.name}!</h1>

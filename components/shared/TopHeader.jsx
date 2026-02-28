@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { API_BASE_URL } from '../../utils/constants';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -97,11 +98,14 @@ const TopHeader = ({ user, onLogout, isSidebarCollapsed = false }) => {
               className="flex items-center space-x-2 p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             >
               {profileImageUrl ? (
-                <img
+                <Image
                   src={profileImageUrl}
                   alt={user.name}
+                  width={32}
+                  height={32}
                   className="w-8 h-8 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600"
                   onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                  unoptimized
                 />
               ) : null}
               <div
@@ -124,7 +128,7 @@ const TopHeader = ({ user, onLogout, isSidebarCollapsed = false }) => {
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4">
                   <div className="flex items-center space-x-3">
                     {profileImageUrl ? (
-                      <img src={profileImageUrl} alt={user.name} className="w-12 h-12 rounded-full object-cover border-2 border-white" />
+                      <Image src={profileImageUrl} alt={user.name} width={48} height={48} className="w-12 h-12 rounded-full object-cover border-2 border-white" unoptimized />
                     ) : (
                       <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-blue-600 font-bold text-lg border-2 border-white">
                         {getInitials(user.name)}

@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 import { studentAPI } from "../../utils/api";
 import { API_BASE_URL } from "../../utils/constants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -331,10 +332,13 @@ const StudentCVForm = ({ user, isReadOnly = false }) => {
                   <div className="relative shrink-0">
                     <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700 ring-4 ring-blue-100 dark:ring-blue-900">
                       {profilePicturePreview ? (
-                        <img
+                        <Image
                           src={profilePicturePreview}
                           alt="Profile"
+                          width={160}
+                          height={160}
                           className="w-full h-full object-cover"
+                          unoptimized
                         />
                       ) : (
                         <div className="w-full h-full bg-blue-600 flex items-center justify-center">
@@ -690,10 +694,13 @@ const StudentCVForm = ({ user, isReadOnly = false }) => {
                     <div className="flex items-center space-x-4">
                       <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 rounded-full flex items-center justify-center overflow-hidden transition-colors">
                         {profilePicturePreview ? (
-                          <img
+                          <Image
                             src={profilePicturePreview}
                             alt="Preview"
+                            width={80}
+                            height={80}
                             className="w-full h-full object-cover"
+                            unoptimized
                           />
                         ) : (
                           <span className="text-2xl text-blue-600 dark:text-blue-400">
