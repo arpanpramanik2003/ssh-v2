@@ -888,9 +888,9 @@ const Analytics = ({ user, token, onNavigate }) => {
       {activeTab === 'programs' && (
         <div className="space-y-6">
           {/* Program Overview Cards */}
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+          <div className="bg-blue-700 dark:bg-blue-800 rounded-xl shadow-lg p-6 text-white transition-colors">
             <div className="flex items-center mb-4">
-              <div className="w-10 h-10 bg-white bg-opacity-30 rounded-lg flex items-center justify-center mr-3">
+              <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-3">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
@@ -902,20 +902,20 @@ const Analytics = ({ user, token, onNavigate }) => {
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-indigo-100 text-sm mb-1">Total Students</p>
+              <div className="bg-blue-600 dark:bg-blue-700 rounded-lg p-4">
+                <p className="text-blue-100 text-sm mb-1">Total Students</p>
                 <p className="text-3xl font-bold">{programBreakdown?.totalStudents || 0}</p>
               </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-indigo-100 text-sm mb-1">Total Faculty</p>
+              <div className="bg-blue-600 dark:bg-blue-700 rounded-lg p-4">
+                <p className="text-blue-100 text-sm mb-1">Total Faculty</p>
                 <p className="text-3xl font-bold">{programBreakdown?.totalFaculty || 0}</p>
               </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-indigo-100 text-sm mb-1">Program Categories</p>
+              <div className="bg-blue-600 dark:bg-blue-700 rounded-lg p-4">
+                <p className="text-blue-100 text-sm mb-1">Program Categories</p>
                 <p className="text-3xl font-bold">{Object.keys(programBreakdown?.byCategory || {}).length}</p>
               </div>
-              <div className="bg-white bg-opacity-20 rounded-lg p-4 backdrop-blur-sm">
-                <p className="text-indigo-100 text-sm mb-1">Active Batches</p>
+              <div className="bg-blue-600 dark:bg-blue-700 rounded-lg p-4">
+                <p className="text-blue-100 text-sm mb-1">Active Batches</p>
                 <p className="text-3xl font-bold">{Object.keys(programBreakdown?.byBatch || {}).length}</p>
               </div>
             </div>
@@ -925,7 +925,7 @@ const Analytics = ({ user, token, onNavigate }) => {
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-6 transition-colors">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mr-3">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
                   <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z" />
                   </svg>
@@ -940,12 +940,12 @@ const Analytics = ({ user, token, onNavigate }) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {Object.entries(programBreakdown?.byCategory || {}).map(([category, data], index) => {
                 const colors = [
-                  { gradient: 'from-blue-500 to-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20', border: 'border-blue-200 dark:border-blue-700', text: 'text-blue-700 dark:text-blue-300' },
-                  { gradient: 'from-green-500 to-green-600', bg: 'bg-green-50 dark:bg-green-900/20', border: 'border-green-200 dark:border-green-700', text: 'text-green-700 dark:text-green-300' },
-                  { gradient: 'from-purple-500 to-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20', border: 'border-purple-200 dark:border-purple-700', text: 'text-purple-700 dark:text-purple-300' },
-                  { gradient: 'from-orange-500 to-orange-600', bg: 'bg-orange-50 dark:bg-orange-900/20', border: 'border-orange-200 dark:border-orange-700', text: 'text-orange-700 dark:text-orange-300' },
-                  { gradient: 'from-pink-500 to-pink-600', bg: 'bg-pink-50 dark:bg-pink-900/20', border: 'border-pink-200 dark:border-pink-700', text: 'text-pink-700 dark:text-pink-300' },
-                  { gradient: 'from-indigo-500 to-indigo-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20', border: 'border-indigo-200 dark:border-indigo-700', text: 'text-indigo-700 dark:text-indigo-300' },
+                  { color: 'bg-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20', border: 'border-blue-200 dark:border-blue-700', text: 'text-blue-700 dark:text-blue-300' },
+                  { color: 'bg-green-600', bg: 'bg-green-50 dark:bg-green-900/20', border: 'border-green-200 dark:border-green-700', text: 'text-green-700 dark:text-green-300' },
+                  { color: 'bg-purple-600', bg: 'bg-purple-50 dark:bg-purple-900/20', border: 'border-purple-200 dark:border-purple-700', text: 'text-purple-700 dark:text-purple-300' },
+                  { color: 'bg-orange-600', bg: 'bg-orange-50 dark:bg-orange-900/20', border: 'border-orange-200 dark:border-orange-700', text: 'text-orange-700 dark:text-orange-300' },
+                  { color: 'bg-pink-600', bg: 'bg-pink-50 dark:bg-pink-900/20', border: 'border-pink-200 dark:border-pink-700', text: 'text-pink-700 dark:text-pink-300' },
+                  { color: 'bg-indigo-600', bg: 'bg-indigo-50 dark:bg-indigo-900/20', border: 'border-indigo-200 dark:border-indigo-700', text: 'text-indigo-700 dark:text-indigo-300' },
                 ];
                 const colorScheme = colors[index % colors.length];
                 const studentFacultyRatio = data.faculty > 0 ? (data.students / data.faculty).toFixed(1) : 'N/A';
@@ -966,7 +966,7 @@ const Analytics = ({ user, token, onNavigate }) => {
                           </div>
                         </div>
                       </div>
-                      <div className={`w-12 h-12 bg-gradient-to-br ${colorScheme.gradient} rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-md`}>
+                      <div className={`w-12 h-12 ${colorScheme.color} rounded-lg flex items-center justify-center text-white text-xl font-bold shadow-md`}>
                         {index + 1}
                       </div>
                     </div>
