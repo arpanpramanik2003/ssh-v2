@@ -2,8 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // External packages that should not be bundled by webpack (native Node.js modules)
-  // Next.js 14.x syntax:
+  // Next.js 14.2+ stable key (replaces experimental.serverComponentsExternalPackages)
+  serverExternalPackages: ['sequelize', 'sqlite3', 'pg', 'pg-hstore', 'bcryptjs', 'bcrypt'],
+
+  // Keep experimental key for older Next.js 14.x versions (harmless if ignored)
   experimental: {
     serverComponentsExternalPackages: ['sequelize', 'sqlite3', 'pg', 'pg-hstore', 'bcryptjs', 'bcrypt'],
   },
