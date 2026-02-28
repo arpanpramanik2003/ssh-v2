@@ -498,131 +498,133 @@ const Reports = ({ user, token, onNavigate }) => {
         </div>
       </div>
 
-      {/* Report Summary - Enhanced with Approved Activities */}
+      {/* Report Summary - Professional & Mobile Responsive */}
       {reportData && (
         <>
           {/* Main Statistics */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-6 transition-colors">
-            <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 rounded-lg flex items-center justify-center mr-3 shadow-md">
-                <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-4 sm:p-6 lg:p-8 transition-colors">
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
               </div>
-              <div>
-                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors">Report Summary</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors">Key performance indicators and metrics</p>
+              <div className="min-w-0">
+                <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 transition-colors">Report Summary</h2>
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 transition-colors">Key metrics & performance indicators</p>
               </div>
             </div>
-            {/* Enhanced: 5 columns grid with hover effects */}
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {/* Total Activities */}
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 p-5 rounded-xl border-2 border-blue-200 dark:border-blue-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1">
-                <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl mr-3 shadow-md">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            {/* Statistics Grid - Responsive: 1 col on mobile, 2 on tablet, 5 on desktop */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+              {/* Total Activities Card */}
+              <div className="group bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/20 p-4 sm:p-5 rounded-lg border border-blue-200 dark:border-blue-700/50 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 sm:p-3 bg-blue-500 dark:bg-blue-600 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-blue-900 dark:text-blue-100 transition-colors">{formatNumber(reportData.summary?.totalActivities || 0)}</p>
-                    <p className="text-sm text-blue-700 dark:text-blue-300 transition-colors">Total Activities</p>
-                    <p className="text-xs text-blue-600 dark:text-blue-400 mt-1 transition-colors">All submissions</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-blue-600 dark:text-blue-300 font-medium transition-colors">Total Activities</p>
+                    <p className="text-xl sm:text-2xl font-bold text-blue-900 dark:text-blue-100 transition-colors mt-0.5">{formatNumber(reportData.summary?.totalActivities || 0)}</p>
+                    <p className="text-xs sm:text-xs text-blue-700 dark:text-blue-400 mt-1 transition-colors">All submissions</p>
                   </div>
                 </div>
               </div>
 
-              {/* Approved Activities */}
-              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/30 p-5 rounded-xl border-2 border-emerald-200 dark:border-emerald-700 hover:border-emerald-300 dark:hover:border-emerald-600 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1">
-                <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 rounded-xl mr-3 shadow-md">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* Approved Activities Card */}
+              <div className="group bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-800/20 p-4 sm:p-5 rounded-lg border border-green-200 dark:border-green-700/50 hover:border-green-300 dark:hover:border-green-600 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 sm:p-3 bg-green-500 dark:bg-green-600 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-emerald-900 dark:text-emerald-100 transition-colors">{formatNumber(reportData.summary?.totalApprovedActivities || 0)}</p>
-                    <p className="text-sm text-emerald-700 dark:text-emerald-300 transition-colors">Approved Activities</p>
-                    <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1 transition-colors">Credit eligible</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-green-600 dark:text-green-300 font-medium transition-colors">Approved</p>
+                    <p className="text-xl sm:text-2xl font-bold text-green-900 dark:text-green-100 transition-colors mt-0.5">{formatNumber(reportData.summary?.totalApprovedActivities || 0)}</p>
+                    <p className="text-xs sm:text-xs text-green-700 dark:text-green-400 mt-1 transition-colors">Credit eligible</p>
                   </div>
                 </div>
               </div>
-              
-              {/* Total Credits (from approved only) */}
-              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 p-5 rounded-xl border-2 border-green-200 dark:border-green-700 hover:border-green-300 dark:hover:border-green-600 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1">
-                <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 rounded-xl mr-3 shadow-md">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+
+              {/* Total Credits Card */}
+              <div className="group bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/20 p-4 sm:p-5 rounded-lg border border-amber-200 dark:border-amber-700/50 hover:border-amber-300 dark:hover:border-amber-600 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 sm:p-3 bg-amber-500 dark:bg-amber-600 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-green-900 dark:text-green-100 transition-colors">{formatNumber(reportData.summary?.totalCredits || 0)}</p>
-                    <p className="text-sm text-green-700 dark:text-green-300 transition-colors">Total Credits</p>
-                    <p className="text-xs text-green-600 dark:text-green-400 mt-1 transition-colors">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-amber-600 dark:text-amber-300 font-medium transition-colors">Total Credits</p>
+                    <p className="text-xl sm:text-2xl font-bold text-amber-900 dark:text-amber-100 transition-colors mt-0.5">{formatNumber(reportData.summary?.totalCredits || 0)}</p>
+                    <p className="text-xs sm:text-xs text-amber-700 dark:text-amber-400 mt-1 transition-colors">
                       Avg: {(reportData.summary?.totalApprovedActivities || 0) > 0 
                         ? ((reportData.summary?.totalCredits || 0) / (reportData.summary?.totalApprovedActivities || 1)).toFixed(1)
-                        : '0'} per approved
+                        : '0'}
                     </p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 p-5 rounded-xl border-2 border-purple-200 dark:border-purple-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1">
-                <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 rounded-xl mr-3 shadow-md">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+
+              {/* Program Categories Card */}
+              <div className="group bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/20 p-4 sm:p-5 rounded-lg border border-purple-200 dark:border-purple-700/50 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 sm:p-3 bg-purple-500 dark:bg-purple-600 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-purple-900 dark:text-purple-100 transition-colors">{Object.keys(reportData.summary?.programCategoryBreakdown || {}).length}</p>
-                    <p className="text-sm text-purple-700 dark:text-purple-300 transition-colors">Program Categories</p>
-                    <p className="text-xs text-purple-600 dark:text-purple-400 mt-1 transition-colors">Participating categories</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-purple-600 dark:text-purple-300 font-medium transition-colors">Categories</p>
+                    <p className="text-xl sm:text-2xl font-bold text-purple-900 dark:text-purple-100 transition-colors mt-0.5">{Object.keys(reportData.summary?.programCategoryBreakdown || {}).length}</p>
+                    <p className="text-xs sm:text-xs text-purple-700 dark:text-purple-400 mt-1 transition-colors">Participating</p>
                   </div>
                 </div>
               </div>
-              
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/30 dark:to-yellow-800/30 p-5 rounded-xl border-2 border-yellow-200 dark:border-yellow-700 hover:border-yellow-300 dark:hover:border-yellow-600 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1">
-                <div className="flex items-center">
-                  <div className="p-3 bg-gradient-to-br from-yellow-500 to-yellow-600 dark:from-yellow-600 dark:to-yellow-700 rounded-xl mr-3 shadow-md">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+              {/* Activity Types Card */}
+              <div className="group bg-gradient-to-br from-rose-50 to-rose-100/50 dark:from-rose-900/20 dark:to-rose-800/20 p-4 sm:p-5 rounded-lg border border-rose-200 dark:border-rose-700/50 hover:border-rose-300 dark:hover:border-rose-600 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 sm:p-3 bg-rose-500 dark:bg-rose-600 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="text-2xl font-bold text-yellow-900 dark:text-yellow-100 transition-colors">{Object.keys(reportData.summary?.activityTypeBreakdown || {}).length}</p>
-                    <p className="text-sm text-yellow-700 dark:text-yellow-300 transition-colors">Activity Types</p>
-                    <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1 transition-colors">Categories covered</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs sm:text-sm text-rose-600 dark:text-rose-300 font-medium transition-colors">Activity Types</p>
+                    <p className="text-xl sm:text-2xl font-bold text-rose-900 dark:text-rose-100 transition-colors mt-0.5">{Object.keys(reportData.summary?.activityTypeBreakdown || {}).length}</p>
+                    <p className="text-xs sm:text-xs text-rose-700 dark:text-rose-400 mt-1 transition-colors">Categories covered</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 🔥 NEW: Status Breakdown Section */}
-            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 transition-colors">
-              <h3 className="text-md font-semibold text-gray-800 dark:text-gray-200 mb-3 transition-colors">Activity Status Breakdown</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Status Breakdown Section */}
+            <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700 transition-colors">
+              <h3 className="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-200 mb-4 transition-colors">Status Breakdown</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 {Object.entries(reportData.summary?.statusBreakdown || {}).map(([status, count]) => {
                   const statusConfig = {
-                    approved: { color: 'text-green-700 bg-green-100', darkColor: 'dark:text-green-300 dark:bg-green-900/30', icon: '✅', label: 'Approved' },
-                    pending: { color: 'text-yellow-700 bg-yellow-100', darkColor: 'dark:text-yellow-300 dark:bg-yellow-900/30', icon: '⏳', label: 'Pending' },
-                    rejected: { color: 'text-red-700 bg-red-100', darkColor: 'dark:text-red-300 dark:bg-red-900/30', icon: '❌', label: 'Rejected' }
+                    approved: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-300', icon: '✅', label: 'Approved' },
+                    pending: { bg: 'bg-yellow-100 dark:bg-yellow-900/30', text: 'text-yellow-700 dark:text-yellow-300', icon: '⏳', label: 'Pending' },
+                    rejected: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-300', icon: '❌', label: 'Rejected' }
                   };
-                  const config = statusConfig[status] || { color: 'text-gray-700 bg-gray-100', darkColor: 'dark:text-gray-300 dark:bg-gray-700', icon: '📋', label: status };
+                  const config = statusConfig[status] || { bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-700 dark:text-gray-300', icon: '📋', label: status };
                   
                   return (
-                    <div key={status} className={`p-3 rounded-lg ${config.color.split(' ')[1]} ${config.darkColor.split(' ')[1]} transition-colors`}>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className={`text-xs font-medium ${config.color.split(' ')[0]} ${config.darkColor.split(' ')[0]} transition-colors`}>{config.label}</p>
-                          <p className={`text-lg font-bold ${config.color.split(' ')[0]} ${config.darkColor.split(' ')[0]} transition-colors`}>{formatNumber(count)}</p>
-                        </div>
-                        <span className="text-lg">{config.icon}</span>
+                    <div key={status} className={`${config.bg} p-3 sm:p-4 rounded-lg border border-gray-300 dark:border-gray-600 transition-colors hover:shadow-sm`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <p className={`text-xs sm:text-sm font-semibold ${config.text} transition-colors`}>{config.label}</p>
+                        <span className="text-lg sm:text-xl">{config.icon}</span>
                       </div>
-                      <div className={`text-xs ${config.color.split(' ')[0]} ${config.darkColor.split(' ')[0]} mt-1 transition-colors`}>
+                      <p className={`text-lg sm:text-2xl font-bold ${config.text} transition-colors`}>{formatNumber(count)}</p>
+                      <p className={`text-xs ${config.text} text-opacity-75 dark:text-opacity-75 mt-1 transition-colors`}>
                         {((count / (reportData.summary?.totalActivities || 1)) * 100).toFixed(1)}% of total
-                      </div>
+                      </p>
                     </div>
                   );
                 })}
