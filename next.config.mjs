@@ -10,20 +10,15 @@ const nextConfig = {
     serverComponentsExternalPackages: ['sequelize', 'sqlite3', 'pg', 'pg-hstore', 'bcryptjs', 'bcrypt'],
   },
 
-  // Belt-and-suspenders: explicitly mark native Node packages as webpack externals
-  // This guarantees pg/sequelize/sqlite3 are NEVER bundled, even in API routes
+  // Force Vercel's file tracer to include pg + sub-packages in every API serverless function
+  outputFileTracingIncludes: {
+    '/api/**/*': ['./node_modules/pg/**/*', './node_modules/pg-pool/**/*', './node_modules/pg-protocol/**/*', './node_modules/pg-types/**/*', './node_modules/pg-hstore/**/*', './node_modules/pg-connection-string/**/*', './node_modules/pgpass/**/*', './node_modules/pg-int8/**/*'],
+  },
+
+  // Keep webpack externals simple — push strings so webpack preserves require() calls
   webpack: (config, { isServer }) => {
     if (isServer) {
-      const nativeExternals = ['pg', 'pg-hstore', 'pg-native', 'sequelize', 'sqlite3', 'bcrypt', 'bcryptjs'];
-      config.externals = [
-        ...(Array.isArray(config.externals) ? config.externals : [config.externals].filter(Boolean)),
-        ({ request }, callback) => {
-          if (nativeExternals.includes(request)) {
-            return callback(null, `commonjs ${request}`);
-          }
-          callback();
-        },
-      ];
+      config.externals.push('pg-native');
     }
     return config;
   },
