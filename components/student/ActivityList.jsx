@@ -302,18 +302,29 @@ const ActivityList = ({ user, token }) => {
                         </button>
                         {visibleFiles[activity.id] && (() => {
                           // fileUrl: absolute for Cloudinary, relative for local /uploads/...
-                          const fileUrl = activity.filePath.startsWith('http')
-                            ? activity.filePath
-                            : activity.filePath; // local paths are like /uploads/certificates/...
-                          const isPDF = activity.filePath?.toLowerCase().includes('.pdf');
+                          const fileUrl = activity.filePath;
+                          const isCloudinary = fileUrl.startsWith('http') && fileUrl.includes('res.cloudinary.com');
+                          const isPDF = fileUrl?.toLowerCase().includes('.pdf');
 
                           // proxyUrl must be absolute so the PDF.js viewer (on mozilla CDN) can fetch it
                           const origin = typeof window !== 'undefined' ? window.location.origin : '';
                           const proxyUrl = `${origin}/api/files/view?url=${encodeURIComponent(fileUrl)}`;
-                          const viewUrl = isPDF
-                            ? `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(proxyUrl)}`
-                            : fileUrl; // images open directly
-                          const downloadUrl = `/api/files/download?url=${encodeURIComponent(fileUrl)}`;
+
+                          let viewUrl;
+                          if (isPDF) {
+                            // All PDFs go through the proxy + PDF.js viewer
+                            viewUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(proxyUrl)}`;
+                          } else if (isCloudinary) {
+                            // Cloudinary images: open the URL directly
+                            viewUrl = fileUrl;
+                          } else {
+                            // Local images: use the proxy to serve them
+                            viewUrl = proxyUrl;
+                          }
+
+                          const downloadUrl = isCloudinary
+                            ? `/api/files/download?url=${encodeURIComponent(fileUrl)}`
+                            : `/api/files/download?url=${encodeURIComponent(fileUrl)}`;
 
                           return (
                             <div className="mt-2 flex flex-col sm:flex-row gap-2">
@@ -331,6 +342,8 @@ const ActivityList = ({ user, token }) => {
                               </a>
                               <a
                                 href={downloadUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center px-3 py-2 bg-green-600 text-white text-xs font-medium rounded hover:bg-green-700 transition-colors"
                               >
                                 <svg className="w-3 h-3 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

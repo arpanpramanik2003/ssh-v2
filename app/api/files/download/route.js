@@ -71,8 +71,12 @@ export async function GET(request) {
     if (uploadIndex === -1) return NextResponse.json({ message: 'Invalid Cloudinary URL format' }, { status: 400 });
 
     const publicIdWithVersion = urlParts.slice(uploadIndex + 1).join('/');
-    const publicId = publicIdWithVersion.replace(/^v\d+\//, '');
     const resourceType = url.includes('/raw/') ? 'raw' : 'image';
+    // For 'raw' resources (PDF, DOC, etc.), the file extension IS part of the public_id
+    // and must NOT be stripped. For images, Cloudinary stores public_id without extension.
+    const publicId = resourceType === 'raw'
+      ? publicIdWithVersion.replace(/^v\d+\//, '')
+      : publicIdWithVersion.replace(/^v\d+\//, '').replace(/\.[^/.]+$/, '');
 
     const downloadUrl = cloudinary.url(publicId, {
       resource_type: resourceType,
