@@ -209,7 +209,7 @@ const StudentList = ({ user }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
-                ðŸŽ“ Program Category
+                🎓 Program Category
               </label>
               <select
                 value={programCategoryFilter}
@@ -231,7 +231,7 @@ const StudentList = ({ user }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
-                ðŸ“š Program
+                📚 Program
               </label>
               <select
                 value={programFilter}
@@ -252,7 +252,7 @@ const StudentList = ({ user }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
-                ðŸŽ¯ Specialization
+                🎯 Specialization
               </label>
               <select
                 value={specializationFilter}
@@ -270,7 +270,7 @@ const StudentList = ({ user }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
-                ðŸ“… Year
+                📅 Year
               </label>
               <select
                 value={yearFilter}
@@ -287,7 +287,7 @@ const StudentList = ({ user }) => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors">
-                ðŸŽ“ Batch (Admission Year)
+                🎓 Batch (Admission Year)
               </label>
               <select
                 value={admissionYearFilter}
@@ -307,7 +307,7 @@ const StudentList = ({ user }) => {
                   onClick={handleResetFilters}
                   className="w-full px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all hover:scale-105"
                 >
-                  ðŸ”„ Reset Filters
+                  🔄 Reset Filters
                 </button>
               )}
             </div>

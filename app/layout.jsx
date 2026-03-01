@@ -27,7 +27,6 @@ export const metadata = {
   // PWA & FAVICON
   // =====================
   manifest: '/site.webmanifest',
-  themeColor: '#0b0f19',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -68,6 +67,10 @@ export const metadata = {
       'A smart academic productivity platform designed to enhance student learning and performance.',
     images: ['https://ssh.arpanpramanik.dev/android-chrome-512x512.png'],
   },
+};
+
+export const viewport = {
+  themeColor: '#0b0f19',
 };
 
 export default function RootLayout({ children }) {

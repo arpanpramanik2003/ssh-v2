@@ -2,17 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
 
-  // Next.js 14.2+ stable key
-  serverExternalPackages: ['sequelize', 'sqlite3', 'pg', 'pg-hstore', 'bcryptjs', 'bcrypt'],
-
-  // Fallback for older Next.js 14.x
+  // Next.js 14.2 compatible: mark server-only packages that shouldn't be bundled for client
+  // Vercel automatically includes these packages in serverless functions
   experimental: {
     serverComponentsExternalPackages: ['sequelize', 'sqlite3', 'pg', 'pg-hstore', 'bcryptjs', 'bcrypt'],
-  },
-
-  // Force Vercel's file tracer to include pg + sub-packages in every API serverless function
-  outputFileTracingIncludes: {
-    '/api/**/*': ['./node_modules/pg/**/*', './node_modules/pg-pool/**/*', './node_modules/pg-protocol/**/*', './node_modules/pg-types/**/*', './node_modules/pg-hstore/**/*', './node_modules/pg-connection-string/**/*', './node_modules/pgpass/**/*', './node_modules/pg-int8/**/*'],
   },
 
   // Keep webpack externals simple — push strings so webpack preserves require() calls
