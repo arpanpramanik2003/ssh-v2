@@ -120,7 +120,7 @@ const Dashboard = ({ user, token, updateUser }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4"
+        className="bg-indigo-600 text-white rounded-lg p-4 sm:p-6 flex flex-col sm:flex-row items-center sm:items-start gap-4"
       >
         <Image
           src={profilePreview}

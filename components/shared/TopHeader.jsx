@@ -109,7 +109,7 @@ const TopHeader = ({ user, onLogout, isSidebarCollapsed = false }) => {
                 />
               ) : null}
               <div
-                className={`w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-200 dark:border-gray-600 ${profileImageUrl ? 'hidden' : 'flex'}`}
+                className={`w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm border-2 border-gray-200 dark:border-gray-600 ${profileImageUrl ? 'hidden' : 'flex'}`}
               >
                 {getInitials(user.name)}
               </div>
@@ -125,18 +125,18 @@ const TopHeader = ({ user, onLogout, isSidebarCollapsed = false }) => {
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Profile Header */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-4">
+                <div className="bg-indigo-600 px-4 py-4">
                   <div className="flex items-center space-x-3">
                     {profileImageUrl ? (
                       <Image src={profileImageUrl} alt={user.name} width={48} height={48} className="w-12 h-12 rounded-full object-cover border-2 border-white" unoptimized />
                     ) : (
-                      <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-blue-600 font-bold text-lg border-2 border-white">
+                      <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-indigo-600 font-bold text-lg border-2 border-white">
                         {getInitials(user.name)}
                       </div>
                     )}
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-bold text-white truncate">{user.name}</p>
-                      <p className="text-xs text-blue-100 truncate">{user.email}</p>
+                      <p className="text-xs text-indigo-100 truncate">{user.email}</p>
                     </div>
                   </div>
                 </div>

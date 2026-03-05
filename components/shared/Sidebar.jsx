@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import { USER_ROLES } from '../../utils/constants';
+import { USER_ROLES, API_BASE_URL } from '../../utils/constants';
 import { useTheme } from '../../contexts/ThemeContext';
+
+const backendBaseUrl = API_BASE_URL.replace('/api', '');
 
 const Sidebar = ({ user, onCollapsedChange }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -11,6 +13,24 @@ const Sidebar = ({ user, onCollapsedChange }) => {
   const { isDarkMode } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  
+  const [profilePreview, setProfilePreview] = useState(() => {
+    if (!user?.profilePicture) return '/default-avatar.png';
+    return user.profilePicture.startsWith('http') 
+      ? user.profilePicture 
+      : `${backendBaseUrl}${user.profilePicture}`;
+  });
+
+  useEffect(() => {
+    if (user?.profilePicture) {
+      const url = user.profilePicture.startsWith('http') 
+        ? user.profilePicture 
+        : `${backendBaseUrl}${user.profilePicture}`;
+      setProfilePreview(url);
+    } else {
+      setProfilePreview('/default-avatar.png');
+    }
+  }, [user?.profilePicture]);
 
   useEffect(() => {
     if (onCollapsedChange) {
@@ -207,9 +227,20 @@ const Sidebar = ({ user, onCollapsedChange }) => {
           {/* User Info */}
           <div className={`border-b border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 ${isCollapsed ? 'h-0 opacity-0' : 'h-auto p-4 opacity-100'}`}>
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold flex-shrink-0">
-                {user.name.charAt(0).toUpperCase()}
-              </div>
+              {user?.profilePicture ? (
+                <Image
+                  src={profilePreview}
+                  alt={user.name}
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 rounded-full object-cover flex-shrink-0 border border-gray-300 dark:border-gray-600"
+                  unoptimized
+                />
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold flex-shrink-0 border border-indigo-700 dark:border-indigo-500">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+              )}
               <div className="flex-1 min-w-0 overflow-hidden">
                 <p className="text-sm font-semibold text-gray-900 dark:text-white truncate whitespace-nowrap">{user.name}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 truncate whitespace-nowrap">{user.department}</p>
@@ -244,7 +275,7 @@ const Sidebar = ({ user, onCollapsedChange }) => {
           <div className={`p-3 border-t border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 ${isCollapsed ? 'h-0 opacity-0' : 'h-auto opacity-100'}`}>
             <div className="text-xs text-center text-gray-500 dark:text-gray-400">
               <p className="font-semibold whitespace-nowrap">Smart Student Hub</p>
-              <p className="whitespace-nowrap">v2.0.0 (Next.js)</p>
+              <p className="whitespace-nowrap text-blue-600 dark:text-blue-400 font-medium">✨ v2.0.0</p>
             </div>
           </div>
         </div>
