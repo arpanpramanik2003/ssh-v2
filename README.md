@@ -364,7 +364,11 @@ MIT — see [LICENSE](LICENSE)
 
 ## 👥 Team
 
-Built by **Arpan Pramanik** for SIH 2025.
+- **Arpan Pramanik** — Developer & DevOps Controller  
+  GitHub: https://github.com/arpanpramanik2003
+- **Diya Chanda** — UI/UX Designer  
+  GitHub: https://github.com/chandadiya2004  
+  Gmail: diya.chanda03@gmail.com
 
 **Repository:** https://github.com/arpanpramanik2003/ssh-v2  
 **Happy Coding! 🚀**
