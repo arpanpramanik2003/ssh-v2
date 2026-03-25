@@ -13,7 +13,7 @@ export async function GET(request) {
     const { User } = await initDB();
     const user = await User.findByPk(auth.user.id, {
       attributes: [
-        'id', 'name', 'email', 'department', 'year', 'studentId',
+        'id', 'name', 'email', 'department', 'programCategory', 'program', 'specialization', 'year', 'studentId',
         'profilePicture', 'tenthResult', 'twelfthResult', 'address',
         'languages', 'skills', 'otherDetails',
         'phone', 'dateOfBirth', 'gender', 'category', 'hobbies',
@@ -79,7 +79,7 @@ export async function PUT(request) {
 
     const updatedUser = await User.findByPk(auth.user.id, {
       attributes: [
-        'id', 'name', 'email', 'department', 'year', 'studentId',
+        'id', 'name', 'email', 'department', 'programCategory', 'program', 'specialization', 'year', 'studentId',
         'profilePicture', 'tenthResult', 'twelfthResult', 'address',
         'languages', 'skills', 'otherDetails',
         'phone', 'dateOfBirth', 'gender', 'category', 'hobbies',

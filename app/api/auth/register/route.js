@@ -26,8 +26,11 @@ export async function POST(request) {
     }
 
     if (role === 'student') {
-      if (!specialization || specialization.trim() === '') {
-        return NextResponse.json({ message: 'Specialization is mandatory for students' }, { status: 400 });
+      if (!program) {
+        return NextResponse.json({ message: 'Program is required for students' }, { status: 400 });
+      }
+      if (!admissionYear) {
+        return NextResponse.json({ message: 'Admission year is mandatory for students' }, { status: 400 });
       }
       const pv = validateProgramSelection(programCategory, program, specialization);
       if (!pv.valid) {

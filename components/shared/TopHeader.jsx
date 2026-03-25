@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { API_BASE_URL } from '../../utils/constants';
 import { useTheme } from '../../contexts/ThemeContext';
+import { getUserDepartmentLikeDisplay } from '../../utils/userDisplay';
 
 const TopHeader = ({ user, onLogout, isSidebarCollapsed = false }) => {
+  const departmentLikeDisplay = getUserDepartmentLikeDisplay(user);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
   const { isDarkMode, toggleTheme } = useTheme();
@@ -52,7 +54,7 @@ const TopHeader = ({ user, onLogout, isSidebarCollapsed = false }) => {
             Welcome back, <span className="text-blue-600 dark:text-blue-400">{user.name.split(' ')[0]}</span>! 👋
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400 hidden md:block">
-            {user.department} • {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+            {departmentLikeDisplay} • {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
           </p>
         </div>
 

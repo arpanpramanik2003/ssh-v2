@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { studentAPI } from '../../utils/api';
 import { STATUS_COLORS, API_BASE_URL } from '../../utils/constants';
+import { getStudentProgramDisplay } from '../../utils/userDisplay';
 import LoadingSpinner, { CardSkeleton } from '../shared/LoadingSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,6 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const backendBaseUrl = API_BASE_URL.replace('/api', '');
 
 const Dashboard = ({ user, token, updateUser }) => {
+  const academicDisplay = getStudentProgramDisplay(user);
   const router = useRouter();
   const [stats, setStats] = useState(null);
   const [recentActivities, setRecentActivities] = useState([]);
@@ -133,7 +135,7 @@ const Dashboard = ({ user, token, updateUser }) => {
         <div className="flex-1 text-center sm:text-left w-full">
           <h1 className="text-xl sm:text-2xl font-bold mb-1">Welcome back, {user.name}!</h1>
           <p className="text-blue-100 text-sm sm:text-base mb-3">
-            <span className="inline-block">{user.department}</span>
+            <span className="inline-block">{academicDisplay}</span>
             <span className="hidden sm:inline"> • </span>
             <span className="block sm:inline">Year {user.year} • ID: {user.studentId}</span>
           </p>

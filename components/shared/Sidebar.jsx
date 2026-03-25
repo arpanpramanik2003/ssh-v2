@@ -4,10 +4,12 @@ import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import { USER_ROLES, API_BASE_URL } from '../../utils/constants';
 import { useTheme } from '../../contexts/ThemeContext';
+import { getUserDepartmentLikeDisplay } from '../../utils/userDisplay';
 
 const backendBaseUrl = API_BASE_URL.replace('/api', '');
 
 const Sidebar = ({ user, onCollapsedChange }) => {
+  const departmentLikeDisplay = getUserDepartmentLikeDisplay(user);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { isDarkMode } = useTheme();
@@ -243,7 +245,7 @@ const Sidebar = ({ user, onCollapsedChange }) => {
               )}
               <div className="flex-1 min-w-0 overflow-hidden">
                 <p className="text-sm font-semibold text-gray-900 dark:text-white truncate whitespace-nowrap">{user.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate whitespace-nowrap">{user.department}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate whitespace-nowrap">{departmentLikeDisplay}</p>
               </div>
             </div>
           </div>

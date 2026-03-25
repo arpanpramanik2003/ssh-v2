@@ -2,6 +2,8 @@ import './globals.css';
 import Providers from './providers';
 import { Analytics } from '@vercel/analytics/next';
 
+const SITE_URL = 'https://ssh-v2.arpanpramanik.dev';
+
 export const metadata = {
   // =====================
   // PRIMARY SEO
@@ -22,7 +24,7 @@ export const metadata = {
   ],
   authors: [{ name: 'Arpan Pramanik' }],
   robots: 'index, follow',
-  canonical: 'https://ssh.arpanpramanik.dev',
+  canonical: SITE_URL,
 
   // =====================
   // PWA & FAVICON
@@ -42,13 +44,13 @@ export const metadata = {
   // =====================
   openGraph: {
     type: 'website',
-    url: 'https://ssh.arpanpramanik.dev',
+    url: SITE_URL,
     title: 'Smart Student Hub | Academic Productivity Platform',
     description:
       'A modern academic productivity platform to help students manage resources, track performance, and improve learning efficiency.',
     images: [
       {
-        url: 'https://ssh.arpanpramanik.dev/android-chrome-512x512.png',
+        url: `${SITE_URL}/android-chrome-512x512.png`,
         width: 512,
         height: 512,
         alt: 'Smart Student Hub Logo',
@@ -66,7 +68,7 @@ export const metadata = {
     title: 'Smart Student Hub | Academic Productivity Platform',
     description:
       'A smart academic productivity platform designed to enhance student learning and performance.',
-    images: ['https://ssh.arpanpramanik.dev/android-chrome-512x512.png'],
+    images: [`${SITE_URL}/android-chrome-512x512.png`],
   },
 };
 
@@ -79,7 +81,7 @@ export default function RootLayout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Smart Student Hub',
-    url: 'https://ssh.arpanpramanik.dev',
+    url: SITE_URL,
     applicationCategory: 'EducationalApplication',
     operatingSystem: 'Web',
     creator: {

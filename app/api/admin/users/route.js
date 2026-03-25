@@ -79,7 +79,6 @@ export async function POST(request) {
 
     if (role === 'student') {
       if (!program) return NextResponse.json({ error: 'Program is required for students' }, { status: 400 });
-      if (!specialization?.trim()) return NextResponse.json({ error: 'Specialization is mandatory for students' }, { status: 400 });
       if (!admissionYear) return NextResponse.json({ error: 'Admission year is mandatory for students' }, { status: 400 });
 
       const pv = validateProgramSelection(programCategory, program, specialization);
@@ -91,9 +90,13 @@ export async function POST(request) {
     const existing = await User.findOne({ where: { email } });
     if (existing) return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 });
 
+    const studentDepartment = role === 'student'
+      ? (program || null)
+      : (department || null);
+
     const user = await User.create({
       name, email, password, role,
-      department: department || null,
+      department: studentDepartment,
       programCategory: programCategoryValue,
       program: role === 'student' ? program : null,
       specialization: role === 'student' ? specialization : null,

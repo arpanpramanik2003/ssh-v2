@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import { studentAPI } from "../../utils/api";
 import { API_BASE_URL } from "../../utils/constants";
+import { getStudentProgramDisplay } from "../../utils/userDisplay";
 import { motion, AnimatePresence } from "framer-motion";
 import LoadingSpinner, { SectionSkeleton } from "../shared/LoadingSpinner";
 
@@ -28,6 +29,7 @@ const defaultDetails = {
 };
 
 const StudentCVForm = ({ user, isReadOnly = false }) => {
+  const academicDisplay = getStudentProgramDisplay(user);
   const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState(defaultDetails);
   const [loading, setLoading] = useState(true);
@@ -355,7 +357,7 @@ const StudentCVForm = ({ user, isReadOnly = false }) => {
                   <div className="flex-1 text-center lg:text-left">
                     <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">{user?.name}</h3>
                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-3">
-                      <p className="text-base sm:text-lg text-blue-600 dark:text-blue-400 font-semibold">{user?.department || 'N/A'}</p>
+                      <p className="text-base sm:text-lg text-blue-600 dark:text-blue-400 font-semibold">{academicDisplay}</p>
                       <span className="text-gray-400">•</span>
                       <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-medium">Year {user?.year || 'N/A'}</p>
                       {user?.studentId && (

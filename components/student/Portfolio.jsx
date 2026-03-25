@@ -4,8 +4,10 @@ import { studentAPI } from '../../utils/api';
 import LoadingSpinner, { SectionSkeleton } from '../shared/LoadingSpinner';
 import jsPDF from 'jspdf';
 import StudentCVForm from './StudentCVForm';
+import { getStudentProgramDisplay } from '../../utils/userDisplay';
 
 const Portfolio = ({ user, token, isReadOnly = false }) => {
+  const academicDisplay = getStudentProgramDisplay(user);
   const [activities, setActivities] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -137,7 +139,7 @@ const generateEnhancedPDF = () => {
   // Title/Department
   doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
-  doc.text(`${user.department} • Year ${user.year}`, pageWidth / 2, 23, { align: 'center' });
+  doc.text(`${academicDisplay} • Year ${user.year}`, pageWidth / 2, 23, { align: 'center' });
   
   // Contact Line
   const contactParts = [];
@@ -196,7 +198,7 @@ const generateEnhancedPDF = () => {
   
   // Current Education
   doc.setFont('helvetica', 'bold');
-  doc.text(`${user.department}`, margin + 5, y);
+  doc.text(`${academicDisplay}`, margin + 5, y);
   doc.setFont('helvetica', 'normal');
   doc.text(`Year ${user.year}`, pageWidth - margin, y, { align: 'right' });
   y += 5;
@@ -444,7 +446,7 @@ const generateEnhancedPDF = () => {
               </h1>
               <p className="text-white text-base sm:text-lg font-semibold drop-shadow-sm">{user.name}</p>
               <p className="text-blue-100 dark:text-blue-200 text-xs sm:text-sm">
-                <span className="inline-block font-medium">{user.department}</span>
+                <span className="inline-block font-medium">{academicDisplay}</span>
                 <span className="hidden sm:inline"> • </span>
                 <span className="block sm:inline mt-1 sm:mt-0">Year {user.year} • ID: {user.studentId}</span>
               </p>

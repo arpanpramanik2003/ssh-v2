@@ -29,7 +29,7 @@ const apiRequest = async (endpoint, options = {}) => {
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({ message: 'Network error' }));
-    throw new Error(err.message || 'Request failed');
+    throw new Error(err.error || err.message || 'Request failed');
   }
 
   return response.json();
